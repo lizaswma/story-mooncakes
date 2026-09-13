@@ -52,19 +52,19 @@ export type Interaction =
       /**
        * The mirror of `stick`: the plate starts with pieces already on it and a
        * tap *removes* one, sending it to a recipient, rather than adding one to a
-       * collection. Used for the mooncake-sharing pages (6, 7, 8, 10).
+       * collection. Used for the mooncake-sharing pages (6, 7, 8) — the countdown
+       * stops at 1; page 10 keeps the last quarter with 小兔 and is a plain `swap`
+       * (a family hug), not a `give`.
        */
       kind: "give";
       sfx: string;
       hotspot: Hotspot;
       /** Layer shown after the tap (the recipient holding the piece, plate down one). */
       to: string;
-      /** Plate count remaining AFTER this tap — 3, 2, 1, or 0. */
+      /** Plate count remaining AFTER this tap — 3, 2, or 1. */
       remaining: number;
-      /** Speak the number and show a numeral badge (page 10's 0 shows a heart instead). */
+      /** Speak the number and show a numeral badge. */
       counting?: boolean;
-      /** Page 10 only: the last piece travels to TWO recipients at once. */
-      split?: boolean;
     }
   | {
       kind: "stick";

@@ -344,27 +344,15 @@ body {
 
 /* ── Give badge (mooncake-sharing pages) ──────────────────────────────────
    Mirrors .count-row/.count-num from the sticker-counting page, but for a
-   single countdown numeral per page. Page 10's remaining=0 shows a heart
-   instead of a literal "0" (PRD §9 open note) — revisit after playtest. */
+   single countdown numeral per page. Countdown stops at 1 (pages 6-8); page
+   10 keeps the last quarter with 小兔 and is a `swap`, not a `give` — see
+   PRD §9's resolved open note. */
 .give-badge {
   position: absolute;
   z-index: 7;
   left: 50%;
   bottom: 16%;
   transform: translateX(-50%);
-}
-.heart-num {
-  display: grid;
-  place-items: center;
-  width: clamp(30px, 4.5vw, 46px);
-  height: clamp(30px, 4.5vw, 46px);
-  border-radius: 999px;
-  background: var(--blush);
-  color: #fff;
-  border: 3px solid var(--paper);
-  font-size: clamp(15px, 2.4vw, 24px);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-  animation: pop 300ms cubic-bezier(0.3, 1.5, 0.5, 1);
 }
 
 /* ── Text banner (parent-facing sentence) ─────────────────────────────────

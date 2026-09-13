@@ -54,8 +54,8 @@ const thanksAndCount = (zh: string, en: string) => ({
 const THANKS_3 = thanksAndCount("还剩三块。", "Three left.");
 const THANKS_2 = thanksAndCount("还剩两块。", "Two left.");
 const THANKS_1 = thanksAndCount("还剩一块。", "One left.");
-const REUNION = { zh: "分完啦，一家团圆。", en: "All shared — together as one family." };
-const ITS_A_RABBIT = { zh: "那是兔子！", en: "That's a rabbit!" };
+const REUNION = { zh: "一家团圆。", en: "Together as one family." };
+const ITS_A_RABBIT = { zh: "月亮上有只兔子！", en: "There's a rabbit in the moon!" };
 
 // Hotspots are % of the stage {x,y = top-left, w,h}. No approved art yet (M0) —
 // these are rough placeholders, centred on where each element is *described* to
@@ -65,11 +65,14 @@ export const PAGES: Page[] = [
     id: 1,
     text: { zh: "中秋节到了！", en: "It's the Mooncake Festival!" },
     background: bg(1),
-    layers: [layer(1, "moon")],
+    // Simplified from `twinkle` (an isolated moon sprite — untested in this
+    // codebase, book 1 defined but never shipped it) to `swap`, matching book
+    // 1's own near-identical "moon gets brighter" opening beat.
+    layers: [layer(1, "scene-bright", { className: "swap-to", ext: "webp" })],
     interaction: {
-      kind: "twinkle",
+      kind: "swap",
       sfx: "chime",
-      targetLayer: "moon",
+      to: "scene-bright",
       hotspot: { x: 58, y: 4, w: 26, h: 30 }, // moon, upper-right
     },
     extras: [
@@ -78,7 +81,10 @@ export const PAGES: Page[] = [
   },
   {
     id: 2,
-    text: { zh: "小兔做兔子灯。", en: "Little Rabbit makes a rabbit lantern." },
+    text: {
+      zh: "小兔做兔子灯，准备过中秋。",
+      en: "Little Rabbit makes a rabbit lantern for the Mooncake Festival.",
+    },
     background: bg(2),
     layers: [layer(2, "scene-decorated", { className: "swap-to", ext: "webp" })],
     interaction: {
@@ -94,20 +100,27 @@ export const PAGES: Page[] = [
   },
   {
     id: 3,
-    text: { zh: "小兔提起灯笼。", en: "Little Rabbit lights the lantern." },
+    text: {
+      zh: "小兔点亮兔子灯，真亮呀！",
+      en: "Little Rabbit lights the lantern. It's so bright!",
+    },
     background: bg(3),
-    layers: [layer(3, "lantern-lit")],
+    // No targetLayer — whole-page `glow` pulse (CSS only, zero extra art),
+    // the same pattern book 1 used for its "costume lights up" beat.
+    layers: [],
     interaction: {
       kind: "glow",
       sfx: "sparkle",
-      targetLayer: "lantern-lit",
       hotspot: { x: 30, y: 20, w: 30, h: 50 }, // the lantern, held up
     },
     // Quiet single-beat page — no extras (PRD §6.1).
   },
   {
     id: 4,
-    text: { zh: "月饼切成四块。", en: "The mooncake is cut into four pieces." },
+    text: {
+      zh: "月饼切成四块，小兔要去分享啦！",
+      en: "The mooncake is cut into four pieces. Little Rabbit heads out to share them!",
+    },
     background: bg(4),
     layers: [layer(4, "scene-cut", { className: "swap-to", ext: "webp" })],
     interaction: {
@@ -123,7 +136,10 @@ export const PAGES: Page[] = [
   },
   {
     id: 5,
-    text: { zh: "小兔看舞龙。", en: "Little Rabbit watches the dragon dance." },
+    text: {
+      zh: "小兔看舞龙，好热闹！",
+      en: "On the way, Little Rabbit watches the dragon dance. So lively!",
+    },
     background: bg(5),
     layers: [layer(5, "dragon")],
     interaction: {
@@ -140,7 +156,10 @@ export const PAGES: Page[] = [
   },
   {
     id: 6,
-    text: { zh: "小兔给奶奶一块。", en: "Little Rabbit gives Grandma a piece." },
+    text: {
+      zh: "小兔给婆婆一块月饼。",
+      en: "Little Rabbit gives Grandma a piece of the mooncake.",
+    },
     secondaryText: THANKS_3,
     background: bg(6),
     layers: [layer(6, "scene-given", { className: "swap-to", ext: "webp" })],
@@ -153,12 +172,15 @@ export const PAGES: Page[] = [
       hotspot: { x: 44, y: 50, w: 18, h: 22 }, // the wedge, mid-offer
     },
     extras: [
-      { flash: "plant-sway", sfx: "rustle", hotspot: { x: 8, y: 58, w: 16, h: 28 } }, // potted plant by 奶奶's door
+      { flash: "plant-sway", sfx: "rustle", hotspot: { x: 8, y: 58, w: 16, h: 28 } }, // potted plant by 婆婆's door
     ],
   },
   {
     id: 7,
-    text: { zh: "小兔给爷爷一块。", en: "Little Rabbit gives Grandpa a piece." },
+    text: {
+      zh: "小兔给公公一块月饼。",
+      en: "Little Rabbit gives Grandpa a piece of the mooncake.",
+    },
     secondaryText: THANKS_2,
     background: bg(7),
     layers: [layer(7, "scene-given", { className: "swap-to", ext: "webp" })],
@@ -171,13 +193,16 @@ export const PAGES: Page[] = [
       hotspot: { x: 44, y: 50, w: 18, h: 22 },
     },
     extras: [
-      { flash: "chair-rock", sfx: "creak", hotspot: { x: 74, y: 56, w: 18, h: 26 } }, // 爷爷's rocking chair
+      { flash: "chair-rock", sfx: "creak", hotspot: { x: 74, y: 56, w: 18, h: 26 } }, // 公公's rocking chair
       { flash: "lantern-bright", sfx: "flare", hotspot: { x: 6, y: 10, w: 14, h: 30 } }, // hanging lantern
     ],
   },
   {
     id: 8,
-    text: { zh: "小兔给小猫一块。", en: "Little Rabbit gives a piece to Mr. Cat." },
+    text: {
+      zh: "小兔给小猫一块月饼。",
+      en: "Little Rabbit gives a piece of the mooncake to Mr. Cat.",
+    },
     secondaryText: THANKS_1,
     background: bg(8),
     layers: [layer(8, "scene-given", { className: "swap-to", ext: "webp" })],
@@ -196,7 +221,10 @@ export const PAGES: Page[] = [
   },
   {
     id: 9,
-    text: { zh: "小兔回家啦。", en: "Little Rabbit goes home." },
+    text: {
+      zh: "小兔带着最后一块月饼回家。",
+      en: "Little Rabbit goes home with the last piece of mooncake.",
+    },
     background: bg(9),
     layers: [layer(9, "scene-open", { className: "swap-to", ext: "webp" })],
     interaction: {
@@ -213,19 +241,18 @@ export const PAGES: Page[] = [
   {
     id: 10,
     text: {
-      zh: "和爸妈分最后一块。",
-      en: "Little Rabbit shares the last piece with Mom and Dad.",
+      zh: "小兔回到家，和爸爸妈妈分最后一块月饼。",
+      en: "Little Rabbit is home — she shares the last piece with Mom and Dad.",
     },
     secondaryText: REUNION,
     background: bg(10),
     layers: [layer(10, "scene-given", { className: "swap-to", ext: "webp" })],
     interaction: {
-      kind: "give",
+      // Not a `give` — Little Rabbit keeps the last quarter on her own plate
+      // and they share it together; the tap just reveals the family's hug.
+      kind: "swap",
       sfx: "warm-chime",
       to: "scene-given",
-      remaining: 0,
-      counting: true,
-      split: true,
       hotspot: { x: 44, y: 50, w: 18, h: 22 }, // the last wedge on the plate
     },
     extras: [
@@ -238,11 +265,13 @@ export const PAGES: Page[] = [
     text: { zh: "一起看月亮。", en: "Let's look at the moon together." },
     secondaryText: ITS_A_RABBIT,
     background: bg(11),
-    layers: [layer(11, "jade-rabbit")],
+    // Simplified from `twinkle` (an isolated rabbit-glow sprite) to `swap`,
+    // the same full-frame edit-pass technique used everywhere else this book.
+    layers: [layer(11, "jade-rabbit", { className: "swap-to", ext: "webp" })],
     interaction: {
-      kind: "twinkle",
+      kind: "swap",
       sfx: "magic",
-      targetLayer: "jade-rabbit",
+      to: "jade-rabbit",
       hotspot: { x: 38, y: 6, w: 30, h: 34 }, // the big full moon
     },
     // No extras here — protects the reveal as the page's one payoff (PRD §6.1).

@@ -22,7 +22,15 @@ export function isMuted() {
 function load(src: string): Howl {
   let howl = cache.get(src);
   if (!howl) {
-    howl = new Howl({ src: [src], preload: true, html5: true });
+    // Web Audio (the default — no html5 flag), not html5 mode: every clip in
+    // this book is short, and html5 mode plays through a fixed pool of just
+    // 10 native <audio> elements (Howler's html5PoolSize) that this cache
+    // never releases (a Howl only returns its element on `unload()`, which
+    // we never call). By roughly the 10th unique clip in one sitting — e.g.
+    // partway through the giving pages — the pool runs dry and playback
+    // silently stops for the rest of the book. Web Audio decodes into an
+    // in-memory buffer instead, so there's no such ceiling.
+    howl = new Howl({ src: [src], preload: true });
     howl.on("loaderror", () => {
       /* placeholder assets not present yet — silent */
     });

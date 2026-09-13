@@ -157,15 +157,10 @@ export function PageView({ page }: { page: Page }) {
       ))}
 
       {it.kind === "give" && given && it.counting && (
-        // PRD §9 open note: 0 shows a heart instead of a literal "0" badge.
+        // Countdown stops at 1 (pages 6-8) — page 10 keeps the last quarter with
+        // 小兔 and is a `swap`, not a `give`, so `remaining` is never 0 here.
         <div className="give-badge">
-          {it.remaining > 0 ? (
-            <b className="count-num">{it.remaining}</b>
-          ) : (
-            <span className="heart-num" aria-hidden="true">
-              ♥
-            </span>
-          )}
+          <b className="count-num">{it.remaining}</b>
         </div>
       )}
 

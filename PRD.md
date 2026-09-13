@@ -25,7 +25,7 @@ switch the whole book to English** (text and narration) — same mechanism as bo
 
 小兔 and the full art/interaction pipeline are **reused from the series**, per the
 locked [style bible](../little-rabbit-style/STYLE.md). This book introduces 小兔's
-**family** (妈妈/爸爸/奶奶/爷爷) for the first time in the series — all rabbits, same
+**family** (妈妈/爸爸/婆婆/公公) for the first time in the series — all rabbits, same
 silhouette/fur/ear rules as 小兔, just adult proportions — plus a callback cameo from
 小猫 (the cat from book 1).
 
@@ -90,30 +90,35 @@ a rabbit lantern behind. Start: 开始 / Start.
 
 | # | Beat | 中文 (4–8 字) | English | Tap interaction | SFX |
 |---|---|---|---|---|---|
-| 1 | Opening | 中秋节到了！ | It's the Mooncake Festival! | Tap moon → twinkle | soft chime |
-| 2 | Make lantern | 小兔做兔子灯。 | Little Rabbit makes a rabbit lantern. | Tap → lantern decorates (swap: blank → rabbit lantern) | paper rustle |
-| 3 | Light it | 小兔提起灯笼。 | Little Rabbit lights the lantern. | Tap lantern → glow | sparkle |
-| 4 | Cut mooncake | 月饼切成四块。 | The mooncake is cut into four pieces. | Tap → cut (swap: whole → 4 wedges on the plate) | slice + soft ta-da |
-| 5 | Dragon dance | 小兔看舞龙。 | Little Rabbit watches the dragon dance. | Tap dragon → it winds and dances across the street (repeatable encore) | drum + cymbal |
-| 6 | Give #1 (4→3) | 小兔给奶奶一块。 | Little Rabbit gives Grandma a piece. | Tap wedge → travels to 奶奶, plate 4→3, numeral + spoken number | happy hum |
-| 7 | Give #2 (3→2) | 小兔给爷爷一块。 | Little Rabbit gives Grandpa a piece. | Tap wedge → plate 3→2, numeral + spoken number | happy hum |
-| 8 | Give #3 (2→1) | 小兔给小猫一块。 | Little Rabbit gives a piece to Mr. Cat. | Tap wedge → plate 2→1, numeral + spoken number | happy hum |
-| 9 | Go home | 小兔回家啦。 | Little Rabbit goes home. | Tap door → swap (closed → open, warm interior, 妈妈 & 爸爸 waiting) | door creak (warm) |
-| 10 | Share last piece (1→0) | 和爸妈分最后一块。 | Little Rabbit shares the last piece with Mom and Dad. | Tap → last wedge splits into two halves, travels to 妈妈 + 爸爸 at once, plate empties | warm chime |
-| 11 | Moon-gaze | 一起看月亮。 | Let's look at the moon together. | Tap moon → a tiny rabbit glows into view on it — 那是兔子！/ "That's a rabbit!" | magical twinkle |
+| 1 | Opening | 中秋节到了！ | It's the Mooncake Festival! | Tap moon → swap to a brighter full-frame variant (same technique as book 1's opening beat) | soft chime |
+| 2 | Make lantern | 小兔做兔子灯，准备过中秋。 | Little Rabbit makes a rabbit lantern for the Mooncake Festival. | Tap → lantern decorates (swap: blank → rabbit lantern) | paper rustle |
+| 3 | Light it | 小兔点亮兔子灯，真亮呀！ | Little Rabbit lights the lantern. It's so bright! | Tap lantern → whole-page glow pulse (CSS only, no extra art — same as book 1's costume beat) | sparkle |
+| 4 | Cut mooncake | 月饼切成四块，小兔要去分享啦！ | The mooncake is cut into four pieces. Little Rabbit heads out to share them! | Tap → cut (swap: whole → 4 wedges on the plate) | slice + soft ta-da |
+| 5 | Dragon dance | 小兔看舞龙，好热闹！ | On the way, Little Rabbit watches the dragon dance. So lively! | Tap dragon → it winds and dances across the street (repeatable encore) | drum + cymbal |
+| 6 | Give #1 (4→3) | 小兔给婆婆一块月饼。 | Little Rabbit gives Grandma a piece of the mooncake. | Tap wedge → travels to 婆婆, plate 4→3, numeral + spoken number | happy hum |
+| 7 | Give #2 (3→2) | 小兔给公公一块月饼。 | Little Rabbit gives Grandpa a piece of the mooncake. | Tap wedge → plate 3→2, numeral + spoken number | happy hum |
+| 8 | Give #3 (2→1) | 小兔给小猫一块月饼。 | Little Rabbit gives a piece of the mooncake to Mr. Cat. | Tap wedge → plate 2→1, numeral + spoken number | happy hum |
+| 9 | Go home | 小兔带着最后一块月饼回家。 | Little Rabbit goes home with the last piece of mooncake. | Tap door → swap (closed → open, warm interior, 妈妈 & 爸爸 waiting) | door creak (warm) |
+| 10 | Reunion | 小兔回到家，和爸爸妈妈分最后一块月饼。 | Little Rabbit is home — she shares the last piece with Mom and Dad. | Tap → 妈妈 & 爸爸 lean in for a family hug; the last quarter stays on 小兔's own plate, shared together rather than handed off | warm chime |
+| 11 | Moon-gaze | 一起看月亮。 | Let's look at the moon together. | Tap moon → swap to a full-frame variant with a tiny rabbit glowing into view on it — 月亮上有只兔子！/ "There's a rabbit in the moon!" | magical twinkle |
 | 12 | Bedtime | 中秋节快乐，晚安！ | Happy Mooncake Festival. Good night! | Tap lantern → dims, 小兔 curls up asleep | lullaby sting |
 
 Secondary text on pages 6–8 pairs the recipient's thank-you with the remaining-piece
 countdown (e.g. 谢谢小兔！还剩三块。/ "Thank you! Three left.") — see §4.2 — so the
 count is part of the read-aloud script, not just the numeral badge and spoken-number
-sound bite. Page 10 pairs the reunion line with an explicit "all shared out": 分完啦，
-一家团圆。/ "All shared — together as one family."
+sound bite. Page 10 is not part of the countdown — 小兔 keeps her last quarter rather
+than giving it away, so its secondary line is simply 一家团圆。/ "Together as one
+family," not a count.
 
 ## 6. Interactivity model
 
 Reuses book 1's [data model](../story-halloween/src/types.ts) — `Page`, `Asset`,
-`Hotspot`, `ExtraTap` carry over unchanged. Three of book 1's four `Interaction` kinds
-are reused as-is: `swap`, `glow`, `twinkle`. This book adds one new kind:
+`Hotspot`, `ExtraTap` carry over unchanged. `twinkle` (an isolated animated sprite
+layer) is defined in the shared type but, like in book 1, never actually shipped on a
+page — every "make something glow/brighten" beat instead uses `swap` (a full-frame
+edit-pass variant, pages 1, 11) or a targetLayer-less `glow` (a whole-page CSS pulse,
+page 3), both proven in book 1 and requiring no new asset-isolation technique. This
+book adds one new kind:
 
 ```ts
 | {
@@ -124,21 +129,20 @@ are reused as-is: `swap`, `glow`, `twinkle`. This book adds one new kind:
     wedge: string;
     /** Who receives it — drives which character animates a "take/thank you" beat. */
     recipient: string;
-    /** Plate count remaining AFTER this tap (4, 3, 2, 1, or 0). */
+    /** Plate count remaining AFTER this tap (4, 3, 2, or 1). */
     remaining: number;
     /** Counting page 11)-style behavior: speak the number, show a numeral badge. */
     counting?: boolean;
-    /** Page 10 only: the wedge splits and travels to TWO recipients at once. */
-    split?: boolean;
   }
 ```
 
 `give` is the mirror image of book 1's `stick` (which *added* a sticker to a
 collection) — here the plate starts full and a tap *removes* one wedge, sending it to
-a recipient. `counting: true` on all four `give` taps (pages 6, 7, 8, 10) drives the
-numeral badge and the spoken number, counting down instead of up. `split: true` only
-on page 10, where the last wedge travels to two recipients simultaneously instead of
-one.
+a recipient. `counting: true` on the three `give` taps (pages 6, 7, 8) drives the
+numeral badge and the spoken number, counting down 4→3→2→1. Page 10 is **not** a
+`give` — 小兔 keeps her last quarter rather than handing it off, so it's a plain
+`swap` (the family leaning in for a hug), same as the page 9 door reveal. No further
+counting/numeral badge after page 8; the countdown stops at 1, not 0.
 
 ### 6.1 Secondary taps (easter eggs)
 
@@ -191,10 +195,10 @@ about this changes for book 2.
 
 ### 8.2 New characters needed
 
-- **妈妈 / 爸爸 / 奶奶 / 爷爷** — first appearance in the series. All rabbits, same
+- **妈妈 / 爸爸 / 婆婆 / 公公** — first appearance in the series. All rabbits, same
   silhouette/fur/ear/outline rules as 小兔 (one ear up, one flopped; cream fur; warm
   brown outlines; no belly patch), generated at adult proportions (taller, rounder,
-  maybe a little more weathered/textured for 奶奶/爷爷 — subtle, not cartoonish aging).
+  maybe a little more weathered/textured for 婆婆/公公 — subtle, not cartoonish aging).
   These become the locked "family" reference sheet for all future books.
 - **小猫** — reused from book 1. Confirm its existing art still matches the style
   bible (locked 2026-09-07, after book 1 shipped) before reusing; regenerate from the
@@ -220,8 +224,10 @@ layers, WebP for backgrounds) and the same `public/pages/NN/`, `public/audio/{la
 
 1. **Structure:** sharing/counting-down (4→3→2→1→0), not collecting/counting-up —
    deliberately inverted from book 1 to fit Mid-Autumn's reunion theme.
-2. **Recipients:** 奶奶, 爷爷, and 小猫 (the cat from book 1, a deliberate series
-   callback) get one wedge each; the last wedge is shared with 妈妈 and 爸爸 together.
+2. **Recipients:** 婆婆, 公公, and 小猫 (the cat from book 1, a deliberate series
+   callback) get one wedge each; the last quarter stays with 小兔 herself, shared
+   with 妈妈 and 爸爸 as a family moment (a hug, not a hand-off — see the resolved
+   open note below).
 3. **Family species:** all rabbits, same style-bible rules as 小兔, just adult
    proportions. First appearance of family in the series.
 4. **Jade Rabbit moon reveal:** yes, as the bedtime emotional high point (page 11) —
@@ -235,7 +241,8 @@ layers, WebP for backgrounds) and the same `public/pages/NN/`, `public/audio/{la
    texture.
 7. **Countdown display:** numerals shown (a badge ticking 4→3→2→1), plus spoken
    numbers — consistent with book 1's counting page already establishing numerals are
-   fine for this age.
+   fine for this age. The countdown stops at 1, not 0 — see the resolved open note
+   below.
 8. **Lantern-making (page 2):** one tap, fully decorated at once — keeps the series
    rule of one interactive element per page, even though multi-step assembly was
    considered.
@@ -244,13 +251,19 @@ layers, WebP for backgrounds) and the same `public/pages/NN/`, `public/audio/{la
 10. **Page count:** kept at 12 + title card, matching book 1, by merging the dragon
     dance into the existing "go out" beat rather than adding a 13th page.
 
-### Open note
+### Resolved open note
 
-- The final give (page 10, 1→0) splits the last wedge between two people rather than
-  reducing to a single numeral "0". Showing a literal "0" badge may be too abstract
-  for this age — the working plan is to replace the numeral with a warm visual (a
-  heart or soft glow) on this tap instead of a "0". Confirm once placeholder art is in
-  and this page can be seen in motion.
+- **The original open question — whether the final 1→0 tap should split the last
+  wedge between two recipients, and whether a literal "0" badge is too abstract for
+  this age — is resolved, once real art could be seen in motion (M2).** A quarter
+  piece splitting further into two eighths for 妈妈 and 爸爸 was both physically odd
+  to draw and unreadable to a toddler. Decided instead: 小兔 keeps the last quarter
+  on her own plate — nothing is given away or subdivided further, and the family
+  simply shares it together in spirit. Page 10 is therefore **not** a `give`/counting
+  beat at all (no numeral badge, no heart, no "0") — it's a plain `swap` to a
+  family-hug variant, same mechanism as the page 9 door reveal. The countdown that
+  matters to a toddler (4→3→2→1, pages 4/6/7/8) is unaffected; page 10 is a pure
+  reunion beat, not a fifth countdown step.
 
 ## 10. Non-goals (v1)
 
@@ -267,7 +280,7 @@ Same as book 1 §10, plus:
 |---|---|
 | M0 | Scaffold: copy the `story-halloween` app shell (page engine, language context, audio wrapper, PWA config); swap in this book's 12-page + title data |
 | M1 | Full content in Mandarin: all 12 pages, `zh` text, `zh` narration (plain TTS), all SFX, all interactions incl. the new `give`/`split` kind working with placeholder art |
-| M2 | Real art integrated: family reference sheet (妈妈/爸爸/奶奶/爷爷) + new props (lantern, dragon, mooncake states, moon/Jade-Rabbit overlay) + confirm/regenerate 小猫 → layered exports wired in |
+| M2 | Real art integrated: family reference sheet (妈妈/爸爸/婆婆/公公) + new props (lantern, dragon, mooncake states, moon/Jade-Rabbit overlay) + confirm/regenerate 小猫 → layered exports wired in |
 | M3 | Bilingual: `en` text + `en` narration + toggle, in-place language switch, persistence |
 | M4 | Final voices: regenerate `zh` + `en` narration with LLM-generated voices (per-language model), swap in as assets |
 | M5 | PWA polish: offline precache verified, install-to-home-screen, landscape lock, reduced-motion, mute, restart, title card |

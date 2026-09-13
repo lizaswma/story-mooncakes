@@ -1,0 +1,23 @@
+{
+  "_comment": "Narration lines mirrored from src/book.ts (TITLE_CARD + PAGES[].text/.secondaryText, combined into one clip per page) and the count words for the give countdown (PRD §5/§6). Keep this in sync by hand if book.ts changes — it's a thin data copy, not the source of truth.",
+  "narration": [
+    { "id": "00", "zh": "小兔过中秋节", "en": "Little Rabbit's Mooncake Festival" },
+    { "id": "01", "zh": "中秋节到了！", "en": "It's the Mooncake Festival!" },
+    { "id": "02", "zh": "小兔做兔子灯，准备过中秋。", "en": "Little Rabbit makes a rabbit lantern for the Mooncake Festival." },
+    { "id": "03", "zh": "小兔点亮兔子灯，真亮呀！", "en": "Little Rabbit lights the lantern. It's so bright!" },
+    { "id": "04", "zh": "月饼切成四块，小兔要去分享啦！", "en": "The mooncake is cut into four pieces. Little Rabbit heads out to share them!" },
+    { "id": "05", "zh": "小兔看舞龙，好热闹！", "en": "On the way, Little Rabbit watches the dragon dance. So lively!" },
+    { "id": "06", "zh": "小兔给婆婆一块月饼。谢谢小兔！还剩三块。", "en": "Little Rabbit gives Grandma a piece of the mooncake. Thank you! Three left." },
+    { "id": "07", "zh": "小兔给公公一块月饼。谢谢小兔！还剩两块。", "en": "Little Rabbit gives Grandpa a piece of the mooncake. Thank you! Two left." },
+    { "id": "08", "zh": "小兔给小猫一块月饼。谢谢小兔！还剩一块。", "en": "Little Rabbit gives a piece of the mooncake to Mr. Cat. Thank you! One left." },
+    { "id": "09", "zh": "小兔带着最后一块月饼回家。", "en": "Little Rabbit goes home with the last piece of mooncake." },
+    { "id": "10", "zh": "小兔回到家，和爸爸妈妈分最后一块月饼。一家团圆。", "en": "Little Rabbit is home — she shares the last piece with Mom and Dad. Together as one family." },
+    { "id": "11", "zh": "一起看月亮。月亮上有只兔子！", "en": "Let's look at the moon together. There's a rabbit in the moon!" },
+    { "id": "12", "zh": "中秋节快乐，晚安！", "en": "Happy Mooncake Festival. Good night!" }
+  ],
+  "count": [
+    { "id": "1", "zh": "一", "en": "one" },
+    { "id": "2", "zh": "二", "en": "two" },
+    { "id": "3", "zh": "三", "en": "three" }
+  ]
+}
