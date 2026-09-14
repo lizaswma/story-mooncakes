@@ -151,8 +151,10 @@ always pleasant, repeatable forever). Per the moon being a recurring motif this 
 `moon-bright` extra appears on every page where the moon is visible in the background
 (1, 4, 5, 9, 10, 12) as a quiet through-line to the page 11 payoff — **not** on page 11
 itself, to avoid diluting that reveal. Page 3 also intentionally has no extras (a quiet
-single-beat page). Draft picks, to be finalized once backgrounds are actually sketched
-(real hotspot coordinates depend on final art layout):
+single-beat page). All art below is generated, approved, and wired (see
+`public/pages/README.md`), with hotspots re-measured against the actual art —
+except `window-bright` (page 9), dropped after 4 generation attempts across 3
+techniques all came back visually identical to the source plate:
 
 | # | Extras (flash / sfx) |
 |---|---|
@@ -164,7 +166,7 @@ single-beat page). Draft picks, to be finalized once backgrounds are actually sk
 | 6 | `plant-sway` / rustle |
 | 7 | `chair-rock` / creak · `lantern-bright` / flare |
 | 8 | `cat-tail` / purr · `toy-wiggle` / squeak |
-| 9 | `window-bright` / chime · `window-moon` / chime |
+| 9 | `window-moon` / chime *(`window-bright` dropped — see note above)* |
 | 10 | `window-moon` / chime · `candle-flare` / flare |
 | 11 | *(none — protect the Jade Rabbit payoff)* |
 | 12 | `window-moon` / chime (last appearance) · `blanket-wiggle` / soft whump |

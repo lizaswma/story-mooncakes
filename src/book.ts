@@ -57,9 +57,11 @@ const THANKS_1 = thanksAndCount("还剩一块。", "One left.");
 const REUNION = { zh: "一家团圆。", en: "Together as one family." };
 const ITS_A_RABBIT = { zh: "月亮上有只兔子！", en: "There's a rabbit in the moon!" };
 
-// Hotspots are % of the stage {x,y = top-left, w,h}. No approved art yet (M0) —
-// these are rough placeholders, centred on where each element is *described* to
-// sit; re-measure once real plates exist, same as story-halloween's workflow.
+// Hotspots are % of the stage {x,y = top-left, w,h}. Re-measured against the
+// actual approved art (main interactions + all extras) once it existed --
+// the original M0 placeholders (centred on where each element was only
+// *described* to sit) had drifted in several places, e.g. every `give` page
+// shared one guessed rectangle that only happened to line up on page 10.
 export const PAGES: Page[] = [
   {
     id: 1,
@@ -76,7 +78,7 @@ export const PAGES: Page[] = [
       hotspot: { x: 58, y: 4, w: 26, h: 30 }, // moon, upper-right
     },
     extras: [
-      { flash: "window-peek", sfx: "hush", hotspot: { x: 14, y: 52, w: 18, h: 24 } }, // a lit window below
+      { flash: "window-peek", sfx: "hush", hotspot: { x: 28, y: 46, w: 14, h: 18 } }, // the lit window, left
     ],
   },
   {
@@ -94,8 +96,8 @@ export const PAGES: Page[] = [
       hotspot: { x: 36, y: 30, w: 28, h: 40 }, // the blank lantern on the table
     },
     extras: [
-      { flash: "scraps-flutter", sfx: "rustle", hotspot: { x: 8, y: 60, w: 20, h: 22 } }, // basket of paper scraps
-      { flash: "stool-wobble", sfx: "tap", hotspot: { x: 70, y: 70, w: 16, h: 18 } }, // the little stool
+      { flash: "scraps-flutter", sfx: "rustle", hotspot: { x: 15, y: 72, w: 27, h: 26 } }, // basket of paper scraps
+      { flash: "stool-wobble", sfx: "tap", hotspot: { x: 58, y: 58, w: 24, h: 37 } }, // the little stool
     ],
   },
   {
@@ -130,8 +132,8 @@ export const PAGES: Page[] = [
       hotspot: { x: 40, y: 44, w: 26, h: 30 }, // the whole mooncake + knife
     },
     extras: [
-      { flash: "teapot-steam", sfx: "whistle", hotspot: { x: 74, y: 36, w: 16, h: 22 } }, // teapot, right
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 6, y: 6, w: 18, h: 22 } }, // window + moon, left
+      { flash: "teapot-steam", sfx: "whistle", hotspot: { x: 52, y: 42, w: 23, h: 23 } }, // teapot, right
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 5, y: 5, w: 25, h: 53 } }, // window + moon, left
     ],
   },
   {
@@ -150,8 +152,8 @@ export const PAGES: Page[] = [
       hotspot: { x: 30, y: 30, w: 42, h: 46 }, // the dragon puppet, mid-street
     },
     extras: [
-      { flash: "tree-leaves", sfx: "rustle", hotspot: { x: 4, y: 18, w: 20, h: 46 } }, // autumn tree, left
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 80, y: 4, w: 16, h: 20 } }, // moon, upper-right
+      { flash: "tree-leaves", sfx: "rustle", hotspot: { x: 10, y: 35, w: 22, h: 50 } }, // tree + falling leaves, left
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 53, y: 0, w: 25, h: 32 } }, // moon, upper-right
     ],
   },
   {
@@ -169,10 +171,10 @@ export const PAGES: Page[] = [
       to: "scene-given",
       remaining: 3,
       counting: true,
-      hotspot: { x: 44, y: 50, w: 18, h: 22 }, // the wedge, mid-offer
+      hotspot: { x: 32, y: 60, w: 24, h: 30 }, // the plate of wedges, in 小兔's paws
     },
     extras: [
-      { flash: "plant-sway", sfx: "rustle", hotspot: { x: 8, y: 58, w: 16, h: 28 } }, // potted plant by 婆婆's door
+      { flash: "plant-sway", sfx: "rustle", hotspot: { x: 40, y: 38, w: 16, h: 30 } }, // potted plant by 婆婆's door
     ],
   },
   {
@@ -190,11 +192,11 @@ export const PAGES: Page[] = [
       to: "scene-given",
       remaining: 2,
       counting: true,
-      hotspot: { x: 44, y: 50, w: 18, h: 22 },
+      hotspot: { x: 48, y: 55, w: 28, h: 42 }, // 小兔 + the plate of wedges, right side
     },
     extras: [
-      { flash: "chair-rock", sfx: "creak", hotspot: { x: 74, y: 56, w: 18, h: 26 } }, // 公公's rocking chair
-      { flash: "lantern-bright", sfx: "flare", hotspot: { x: 6, y: 10, w: 14, h: 30 } }, // hanging lantern
+      { flash: "chair-rock", sfx: "creak", hotspot: { x: 8, y: 25, w: 28, h: 71 } }, // 公公's rocking chair
+      { flash: "lantern-bright", sfx: "flare", hotspot: { x: 40, y: 2, w: 20, h: 28 } }, // hanging lantern
     ],
   },
   {
@@ -212,11 +214,11 @@ export const PAGES: Page[] = [
       to: "scene-given",
       remaining: 1,
       counting: true,
-      hotspot: { x: 44, y: 50, w: 18, h: 22 },
+      hotspot: { x: 36, y: 65, w: 26, h: 32 }, // 小兔 + the plate of wedges, left side
     },
     extras: [
-      { flash: "cat-tail", sfx: "purr", hotspot: { x: 66, y: 46, w: 14, h: 26 } }, // 小猫's tail, a callback to book 1
-      { flash: "toy-wiggle", sfx: "squeak", hotspot: { x: 10, y: 68, w: 14, h: 18 } }, // a toy by the porch
+      { flash: "cat-tail", sfx: "purr", hotspot: { x: 55, y: 62, w: 15, h: 28 } }, // 小猫's tail, a callback to book 1
+      { flash: "toy-wiggle", sfx: "squeak", hotspot: { x: 26, y: 68, w: 16, h: 22 } }, // a toy by the porch
     ],
   },
   {
@@ -233,9 +235,11 @@ export const PAGES: Page[] = [
       to: "scene-open",
       hotspot: { x: 46, y: 14, w: 28, h: 60 }, // the front door
     },
+    // Only one extra here — "window-bright" (a second window flickering
+    // brighter) was dropped after 4 generation attempts across 3 different
+    // techniques all came back visually identical to the source plate.
     extras: [
-      { flash: "window-bright", sfx: "chime", hotspot: { x: 10, y: 20, w: 20, h: 30 } }, // warm-lit window
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 78, y: 4, w: 16, h: 20 } }, // moon, upper-right
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 57, y: 2, w: 21, h: 24 } }, // moon, upper-right
     ],
   },
   {
@@ -256,8 +260,8 @@ export const PAGES: Page[] = [
       hotspot: { x: 44, y: 50, w: 18, h: 22 }, // the last wedge on the plate
     },
     extras: [
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 72, y: 6, w: 18, h: 22 } }, // moon through the window
-      { flash: "candle-flare", sfx: "flare", hotspot: { x: 20, y: 40, w: 10, h: 16 } }, // table candle
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 52, y: 10, w: 20, h: 32 } }, // moon through the window
+      { flash: "candle-flare", sfx: "flare", hotspot: { x: 19, y: 42, w: 14, h: 20 } }, // table candle
     ],
   },
   {
@@ -285,11 +289,11 @@ export const PAGES: Page[] = [
       kind: "swap",
       sfx: "lullaby",
       to: "scene-off",
-      hotspot: { x: 66, y: 30, w: 16, h: 28 }, // the lantern on the nightstand
+      hotspot: { x: 22, y: 22, w: 18, h: 40 }, // the glowing rabbit lantern, on the stool at left
     },
     extras: [
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 74, y: 2, w: 22, h: 28 } }, // moon, last appearance
-      { flash: "blanket-wiggle", sfx: "whump", hotspot: { x: 40, y: 70, w: 24, h: 20 } }, // 小兔 settling in
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 62, y: 3, w: 20, h: 31 } }, // moon, last appearance
+      { flash: "blanket-wiggle", sfx: "whump", hotspot: { x: 35, y: 40, w: 45, h: 50 } }, // 小兔 settling in
     ],
   },
 ];

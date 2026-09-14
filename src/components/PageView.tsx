@@ -120,8 +120,14 @@ export function PageView({ page }: { page: Page }) {
       return "is-glowing";
     if (it.kind === "twinkle" && twinkling && id === it.targetLayer)
       return "is-twinkling";
-    if (it.kind === "dance" && dancing && id === it.targetLayer)
-      return "is-dancing";
+    if (it.kind === "dance" && id === it.targetLayer)
+      // "layer-puppet" always applies (not just while animating): the dragon
+      // is a permanent foreground cutout, generated without any of the
+      // extras' full-frame background flashes baked in, so it must always
+      // paint above `.extra-flash` (z-index 3) or an easter-egg tap makes it
+      // vanish for the flash's hold — it was otherwise unstyled and so sat
+      // at the default stacking level, right behind the flash.
+      return dancing ? "layer-puppet is-dancing" : "layer-puppet";
     return "";
   }
 

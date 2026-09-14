@@ -196,6 +196,13 @@ body {
   }
 }
 
+/* A permanent foreground cutout (page 5's dragon) — always above
+   `.extra-flash` so an easter-egg tap's full-frame background reaction
+   can't paint over it and make it vanish for the flash's hold. */
+.layer.layer-puppet {
+  z-index: 4;
+}
+
 /* Repeatable encore (page 5's dragon) — a one-shot wind-and-wiggle, re-armed
    each tap rather than left permanently on (PRD §6). */
 .is-dancing {
@@ -234,8 +241,19 @@ body {
 }
 
 /* ── Easter eggs: full-frame "reacted" variants (PRD §6 "no dead taps") ── */
+/* Below `.swap-to`/`.given` (z-index 2): every extra's flash is an edit of
+   the page's PRE-interaction resting background, generated with no
+   knowledge of the swapped/given state. It used to sit at z-index 3, above
+   `.swap-to` — so tapping an extra after the main interaction had already
+   fired (door opened, mooncake given, lantern off…) painted the old
+   "before" state right over the new one, e.g. 妈妈/爸爸 vanishing behind a
+   closed door on page 9 when the moon easter egg was tapped. Below it, an
+   extra tap after the interaction still plays its sfx (not silent) but the
+   already-correct art stays on top instead of being covered by a stale
+   flash — see also `.layer-puppet`, which needs the opposite fix (always
+   above extras) for the same underlying reason. */
 .layer.extra-flash {
-  z-index: 3;
+  z-index: 1;
   opacity: 0;
   transition: opacity 260ms ease;
 }
