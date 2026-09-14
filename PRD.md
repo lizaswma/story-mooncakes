@@ -3,7 +3,7 @@
 **Status:** Scope decided — ready to scaffold
 **Product:** Interactive storybook web app, book #2 in the 「小兔」 holiday series (after [小兔过万圣节](../story-halloween/PRD.md))
 **Primary user:** A 2–3 year old, co-playing with a parent
-**Author/owner:** liza.ma@gmail.com
+**Author/owner:** liza@mamabuilds.dev
 
 ---
 
