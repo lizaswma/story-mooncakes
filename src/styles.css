@@ -270,6 +270,60 @@ body {
   display: none;
 }
 
+/* Opt-in per extra (PRD §6.1 "no dead taps" wins over staying below `.swap-to`)
+   — for an extra whose page doesn't hide anything story-critical when its
+   flash briefly reverts the frame, e.g. page 4's teapot/moon over the cut
+   mooncake. See `ExtraTap.aboveReveal` in types.ts for which extras opt in
+   and why. */
+.layer.extra-flash.above-reveal {
+  z-index: 3;
+}
+
+/* ── Tap spark (always-visible "yes, that worked" for extras) ────────────
+   Confined to the extra's own hotspot rect (unlike `.extra-flash`, which
+   some pages must keep hidden below an already-revealed layer — see
+   PageView's comment above where this renders), so it's safe to show on
+   every tap regardless of order or what the main interaction has done. */
+.tap-spark {
+  position: absolute;
+  z-index: 9;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+.tap-spark[hidden] {
+  display: none;
+}
+.tap-spark::after {
+  content: "";
+  width: 44%;
+  height: 44%;
+  min-width: 34px;
+  min-height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 214, 140, 0.6) 55%,
+    rgba(255, 214, 140, 0) 76%
+  );
+  animation: tap-spark-pop 480ms ease-out forwards;
+}
+@keyframes tap-spark-pop {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  35% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
 /* ── Hotspot (the one big tap target) ──────────────────────────────────── */
 .hotspot {
   position: absolute;

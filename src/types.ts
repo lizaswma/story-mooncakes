@@ -91,6 +91,19 @@ export type ExtraTap = {
   flash: string;
   /** How long the variant stays up, ms (default 900). */
   hold?: number;
+  /**
+   * Extras are edits of the page's PRE-interaction resting background (see
+   * PageView's `.extra-flash` z-index note), so by default they render
+   * *below* the main interaction's "to"/"given" art once it's open — safe,
+   * but the tap goes visually silent (sfx only) after that point. Set this
+   * true for an extra whose brief revert-and-recover is harmless (nothing
+   * story-critical gets hidden, e.g. a mooncake's cut style) to render it
+   * *above* instead, so it still flashes after the main tap has fired.
+   * Leave unset on any extra whose page reveals something the story needs
+   * to stay visible (a door opening on family, a hug) — reverting that even
+   * briefly is the actual bug this flag exists to avoid re-introducing.
+   */
+  aboveReveal?: boolean;
 };
 
 export type Page = {

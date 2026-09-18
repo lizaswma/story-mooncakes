@@ -93,7 +93,11 @@ export const PAGES: Page[] = [
       kind: "swap",
       sfx: "rustle",
       to: "scene-decorated",
-      hotspot: { x: 36, y: 30, w: 28, h: 40 }, // the blank lantern on the table
+      // Re-measured against the actual art (was y:30,h:40 — a hangover from
+      // the M0 placeholder guess): the blank lantern's rim/loop sits as high
+      // as ~21% down the frame, so the old box's 30% top cut off its top
+      // third and a toddler tapping the lantern's dome missed the target.
+      hotspot: { x: 36, y: 15, w: 30, h: 38 }, // the blank lantern on the table
     },
     extras: [
       { flash: "scraps-flutter", sfx: "rustle", hotspot: { x: 15, y: 72, w: 27, h: 26 } }, // basket of paper scraps
@@ -131,9 +135,12 @@ export const PAGES: Page[] = [
       to: "scene-cut",
       hotspot: { x: 40, y: 44, w: 26, h: 30 }, // the whole mooncake + knife
     },
+    // Both extras are safe to flash above the cut-mooncake reveal: the worst
+    // case is the mooncake briefly looking whole again for one beat, not a
+    // hidden character or story moment (contrast page 9's door reveal).
     extras: [
-      { flash: "teapot-steam", sfx: "whistle", hotspot: { x: 52, y: 42, w: 23, h: 23 } }, // teapot, right
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 5, y: 5, w: 25, h: 53 } }, // window + moon, left
+      { flash: "teapot-steam", sfx: "whistle", hotspot: { x: 52, y: 42, w: 23, h: 23 }, aboveReveal: true }, // teapot, right
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 5, y: 5, w: 25, h: 53 }, aboveReveal: true }, // window + moon, left
     ],
   },
   {
@@ -233,7 +240,12 @@ export const PAGES: Page[] = [
       kind: "swap",
       sfx: "creak",
       to: "scene-open",
-      hotspot: { x: 46, y: 14, w: 28, h: 60 }, // the front door
+      // Re-measured against the actual art: the old box (y:14,h:60) was
+      // centred on the roof above the door, not the door itself — a toddler
+      // tapping the visible door/rabbit mostly missed high, only catching
+      // the box's lower edge. Now centred on the door + the rabbit
+      // standing in front of it.
+      hotspot: { x: 38, y: 40, w: 32, h: 44 }, // the front door
     },
     // Only one extra here — "window-bright" (a second window flickering
     // brighter) was dropped after 4 generation attempts across 3 different

@@ -157,8 +157,31 @@ export function PageView({ page }: { page: Page }) {
         <Layer
           key={x.flash}
           asset={{ id: x.flash, src: `/pages/${pad(page.id)}/${x.flash}.webp` }}
-          className="extra-flash"
+          className={`extra-flash ${x.aboveReveal ? "above-reveal" : ""}`}
           hidden={!flashing[x.flash]}
+        />
+      ))}
+
+      {/* Always-visible tap acknowledgment, confined to the extra's own small
+          hotspot rect. The full-frame flash above must stay hidden behind an
+          already-revealed "to"/"given" layer on most pages (reverting that
+          reveal, even briefly, is the actual bug `aboveReveal` guards
+          against — see ExtraTap in types.ts), which otherwise leaves a tap
+          that fires sfx only, with nothing to see or feel yet since no sfx
+          assets exist. This spark never touches the reveal, so it's safe to
+          show every time, in any order, before or after the main tap. */}
+      {extras.map((x) => (
+        <div
+          key={`spark-${x.flash}`}
+          className="tap-spark"
+          style={{
+            left: `${x.hotspot.x}%`,
+            top: `${x.hotspot.y}%`,
+            width: `${x.hotspot.w}%`,
+            height: `${x.hotspot.h}%`,
+          }}
+          hidden={!flashing[x.flash]}
+          aria-hidden="true"
         />
       ))}
 
