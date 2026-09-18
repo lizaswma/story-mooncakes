@@ -27,6 +27,11 @@ export function PageView({ page }: { page: Page }) {
   // Easter eggs + the repeatable dragon dance clear themselves on a timer so the
   // element can be tapped again right away.
   const [flashing, setFlashing] = useState<Record<string, boolean>>({});
+  // Bumped on every tapExtra call so the spark below remounts (and its CSS
+  // animation restarts) even when re-tapped before the previous hold has
+  // expired — otherwise `flashing[x.flash]` is already `true`, the `hidden`
+  // attribute never flips, and a quick second tap plays no animation at all.
+  const [tapNonce, setTapNonce] = useState<Record<string, number>>({});
   const danceTimer = useRef<number>();
   // The banner fades back after a few seconds so it stops covering the art; a
   // tap on it (or a page turn) brings it back. Parent-facing text only.
@@ -103,6 +108,7 @@ export function PageView({ page }: { page: Page }) {
   function tapExtra(x: ExtraTap) {
     playSfx(x.sfx);
     setFlashing((f) => ({ ...f, [x.flash]: true }));
+    setTapNonce((n) => ({ ...n, [x.flash]: (n[x.flash] ?? 0) + 1 }));
     // Re-tapping restarts the hold rather than letting an in-flight timer cut it short.
     window.clearTimeout(flashTimers.current[x.flash]);
     flashTimers.current[x.flash] = window.setTimeout(() => {
@@ -172,7 +178,7 @@ export function PageView({ page }: { page: Page }) {
           show every time, in any order, before or after the main tap. */}
       {extras.map((x) => (
         <div
-          key={`spark-${x.flash}`}
+          key={`spark-${x.flash}-${tapNonce[x.flash] ?? 0}`}
           className="tap-spark"
           style={{
             left: `${x.hotspot.x}%`,
