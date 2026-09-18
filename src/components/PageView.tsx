@@ -39,6 +39,13 @@ export function PageView({ page }: { page: Page }) {
   // sfx yet. An instant spark on top gives an unmistakable "yes, that
   // worked" regardless of how subtle the ambient effect reads.
   const [mainTapNonce, setMainTapNonce] = useState(0);
+  // Same fix again, for the dance encore: `dancing` stays `true` across a
+  // re-tap made after the 900ms wiggle finishes but before the 1400ms hold
+  // expires, so the `is-dancing` class never toggles off-and-on and the
+  // animation never replays — that tap looked completely dead. Folding this
+  // into the puppet layer's key forces a remount (and a fresh animation) on
+  // every tap regardless of timing.
+  const [danceNonce, setDanceNonce] = useState(0);
   const danceTimer = useRef<number>();
   // The banner fades back after a few seconds so it stops covering the art; a
   // tap on it (or a page turn) brings it back. Parent-facing text only.
@@ -91,6 +98,7 @@ export function PageView({ page }: { page: Page }) {
         break;
       case "dance":
         setDancing(true);
+        setDanceNonce((n) => n + 1);
         // Re-tapping restarts the encore rather than letting it cut short.
         window.clearTimeout(danceTimer.current);
         danceTimer.current = window.setTimeout(
@@ -162,7 +170,11 @@ export function PageView({ page }: { page: Page }) {
         if (it.kind === "give" && l.id === it.to)
           return <Layer key={l.id} asset={l} hidden={!given} />;
         if (l.onOpen) return <Layer key={l.id} asset={l} hidden={!opened} />;
-        return <Layer key={l.id} asset={l} className={layerClass(l.id)} />;
+        const key =
+          it.kind === "dance" && l.id === it.targetLayer
+            ? `${l.id}-${danceNonce}`
+            : l.id;
+        return <Layer key={key} asset={l} className={layerClass(l.id)} />;
       })}
 
       {/* Easter-egg "reacted" frames: a full-frame variant of the plate cross-faded
