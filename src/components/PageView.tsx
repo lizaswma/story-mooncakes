@@ -32,6 +32,13 @@ export function PageView({ page }: { page: Page }) {
   // expired — otherwise `flashing[x.flash]` is already `true`, the `hidden`
   // attribute never flips, and a quick second tap plays no animation at all.
   const [tapNonce, setTapNonce] = useState<Record<string, number>>({});
+  // Same idea as tapNonce above, but for the main hotspot on kinds (`glow`,
+  // `twinkle`) whose own effect is a slow ambient pulse layered on art that
+  // may already read as "on" (page 3's lantern is drawn lit at rest) — so a
+  // tap can register with nothing visible to prove it, especially with no
+  // sfx yet. An instant spark on top gives an unmistakable "yes, that
+  // worked" regardless of how subtle the ambient effect reads.
+  const [mainTapNonce, setMainTapNonce] = useState(0);
   const danceTimer = useRef<number>();
   // The banner fades back after a few seconds so it stops covering the art; a
   // tap on it (or a page turn) brings it back. Parent-facing text only.
@@ -71,6 +78,7 @@ export function PageView({ page }: { page: Page }) {
 
   function handleTap() {
     playSfx(it.sfx);
+    if (it.kind === "glow" || it.kind === "twinkle") setMainTapNonce((n) => n + 1);
     switch (it.kind) {
       case "swap":
         setOpened(true);
@@ -190,6 +198,20 @@ export function PageView({ page }: { page: Page }) {
           aria-hidden="true"
         />
       ))}
+
+      {(it.kind === "glow" || it.kind === "twinkle") && mainTapNonce > 0 && (
+        <div
+          key={`main-spark-${mainTapNonce}`}
+          className="tap-spark"
+          style={{
+            left: `${it.hotspot.x}%`,
+            top: `${it.hotspot.y}%`,
+            width: `${it.hotspot.w}%`,
+            height: `${it.hotspot.h}%`,
+          }}
+          aria-hidden="true"
+        />
+      )}
 
       {it.kind === "give" && given && it.counting && (
         // Countdown stops at 1 (pages 6-8) — page 10 keeps the last quarter with
