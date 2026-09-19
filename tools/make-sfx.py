@@ -25,9 +25,13 @@ OUT = Path(__file__).resolve().parent.parent / "public" / "sfx"
 SR = 44100
 PEAK = 0.35  # hard cap, ≈ -9 dBFS
 RMS = 0.10  # target average level of the audible part, ≈ -20 dBFS
+# Per-sound RMS multipliers; anything not listed is 1.0. The dragon dance is the
+# book's showpiece, so it's allowed to be a little bigger (still peak-capped).
+BOOST = {"drum": 1.3}
 MAX_DUR = 1.5  # seconds — the public/sfx/README.md bar
 
-rng = np.random.default_rng(1015)  # Mid-Autumn, 15th of the 8th lunar month
+SEED = 1015  # Mid-Autumn, 15th of the 8th lunar month
+rng = np.random.default_rng(SEED)  # reseeded per sound in main(), see there
 
 
 # ---- primitives -----------------------------------------------------------
@@ -226,19 +230,40 @@ def s_whistle():
 
 
 def s_drum():
-    """p5 dragon dance: 'dong-dong-dong' on a soft drum, closed by a light cymbal."""
-    def hit(f, dur=0.35):
-        t = t_axis(dur)
-        body = np.sin(2 * np.pi * (f + f * 0.9 * np.exp(-t * 32)) * t) * np.exp(-t * 11)
-        skin = fft_filter(noise(dur), 200, 1800) * np.exp(-t * 40) * 0.25
-        return body + skin
+    """p5 dragon dance: the traditional lion/dragon-dance figure.
 
-    y = silence(1.4)
-    for at, f, g in ((0.0, 95, 1.0), (0.24, 110, 0.8), (0.48, 95, 1.0)):
-        y = place(y, hit(f) * g, at)
-    cym = fft_filter(noise(0.7), 4200, 11000, soft=0.5)
-    cym *= env_ad(len(cym), 0.004, 0.16) * 0.28
-    y = place(y, cym, 0.72)
+    咚 咚 咚 锵 · 咚 锵 咚 锵 — three drum hits, a cymbal clash, then drum/clash
+    twice, on eight even beats. The drum leads (so the tap gets an instant hit)
+    and the last clash rings out as the 900 ms dance winds down.
+    """
+    def dong(f, dur=0.3, punch=1.0):
+        t = t_axis(dur)
+        body = np.sin(2 * np.pi * (f + f * 1.1 * np.exp(-t * 30)) * t) * np.exp(-t * 12)
+        skin = fft_filter(noise(dur), 180, 2200) * np.exp(-t * 38) * 0.3
+        return (body + skin) * punch
+
+    def qiang(dur, tau, gain=1.0):
+        """Cymbal clash: noise plus inharmonic metal partials, sharp strike."""
+        t = t_axis(dur)
+        y = fft_filter(noise(dur), 3000, 12000, soft=0.5)
+        for f, a in ((3110, 0.5), (4370, 0.4), (5230, 0.3), (6980, 0.25), (8410, 0.15)):
+            y += a * np.sin(2 * np.pi * f * t + rng.uniform(0, 6.28)) * 0.6
+        return y * env_ad(len(t), 0.002, tau) * gain
+
+    beat = 0.15
+    # (beat index, kind, drum pitch / cymbal ring)
+    figure = [
+        (0, "dong", 92), (1, "dong", 100), (2, "dong", 92), (3, "qiang", 0.07),
+        (4, "dong", 100), (5, "qiang", 0.07), (6, "dong", 92), (7, "qiang", 0.22),
+    ]
+    y = silence(1.6)
+    for i, kind, arg in figure:
+        at = i * beat
+        if kind == "dong":
+            y = place(y, dong(arg, punch=1.15 if i == 0 else 1.0), at)
+        else:
+            y = place(y, qiang(0.6, arg, 0.9), at)
+            y = place(y, dong(72, dur=0.2, punch=0.5), at)  # the low thud under a clash
     return y
 
 
@@ -363,7 +388,7 @@ SOUNDS = {
 
 
 # ---- output ---------------------------------------------------------------
-def finish(y):
+def finish(y, name=""):
     """Trim, level-match, and fade the edges so nothing clicks or runs long.
 
     Levelled on average loudness (RMS over the audible part), not peak: a held
@@ -379,7 +404,7 @@ def finish(y):
     else:
         tail = int(0.03 * SR)
     audible = y[np.abs(y) > 0.05 * np.max(np.abs(y))]
-    y = y * (RMS / np.sqrt(np.mean(audible**2)))
+    y = y * (RMS * BOOST.get(name, 1.0) / np.sqrt(np.mean(audible**2)))
     y = y * min(1.0, PEAK / np.max(np.abs(y)))
     fade = int(0.004 * SR)
     y[:fade] *= np.linspace(0, 1, fade)
@@ -409,8 +434,12 @@ def main():
     if unknown:
         sys.exit(f"unknown sound(s): {', '.join(unknown)}  (have: {', '.join(SOUNDS)})")
     OUT.mkdir(parents=True, exist_ok=True)
+    global rng
     for name in names:
-        y = finish(SOUNDS[name]())
+        # Seed per sound (not once for the run) so a recipe's noise never depends
+        # on which other sounds were generated before it.
+        rng = np.random.default_rng([SEED, *name.encode()])
+        y = finish(SOUNDS[name](), name)
         write_mp3(name, y)
         print(f"{name:11s} {len(y) / SR:4.2f}s")
 
