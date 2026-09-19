@@ -142,12 +142,12 @@ export const PAGES: Page[] = [
       to: "scene-cut",
       hotspot: { x: 40, y: 44, w: 26, h: 30 }, // the whole mooncake + knife
     },
-    // Both extras are safe to flash above the cut-mooncake reveal: the worst
-    // case is the mooncake briefly looking whole again for one beat, not a
-    // hidden character or story moment (contrast page 9's door reveal).
+    // Both extras flash above the cut-mooncake reveal, but *focused* on their
+    // own element: an unfocused full-frame flash is a pre-cut frame, so it
+    // showed the mooncake whole again for a beat. Once cut, it stays cut.
     extras: [
-      { flash: "teapot-steam", sfx: "whistle", hotspot: { x: 52, y: 42, w: 23, h: 23 }, aboveReveal: true }, // teapot, right
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 5, y: 5, w: 25, h: 53 }, aboveReveal: true }, // window + moon, left
+      { flash: "teapot-steam", sfx: "whistle", hotspot: { x: 52, y: 42, w: 23, h: 23 }, aboveReveal: true, focus: { x: 58, y: 28, w: 16, h: 24 } }, // teapot, right (steam rises above it)
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 5, y: 5, w: 25, h: 53 }, aboveReveal: true, focus: { x: 3, y: 2, w: 28, h: 46 } }, // window + moon, left
     ],
   },
   {
@@ -166,7 +166,10 @@ export const PAGES: Page[] = [
       hotspot: { x: 30, y: 30, w: 42, h: 46 }, // the dragon puppet, mid-street
     },
     extras: [
-      { flash: "tree-leaves", sfx: "rustle", hotspot: { x: 10, y: 35, w: 22, h: 50 } }, // tree + falling leaves, left
+      // The tree is an L: canopy across the top left, thin trunk down the left
+      // edge. The old single box (10,35,22x50) sat mostly on 小兔 (x 20-31%,
+      // y 50-93%) and missed the canopy, so tap the two parts separately.
+      { flash: "tree-leaves", sfx: "rustle", hotspot: { x: 0, y: 0, w: 29, h: 47 }, alsoTap: [{ x: 0, y: 47, w: 17, h: 36 }] }, // tree: canopy (+ trunk, stopping above the ▶ replay button) + falling leaves, left
       { flash: "window-moon", sfx: "chime", hotspot: { x: 53, y: 0, w: 25, h: 32 } }, // moon, upper-right
     ],
   },
@@ -190,11 +193,10 @@ export const PAGES: Page[] = [
     extras: [
       // aboveReveal + focus keep this tap visible after the give (see page 2).
       { flash: "plant-sway", sfx: "rustle", hotspot: { x: 40, y: 38, w: 16, h: 30 }, aboveReveal: true, focus: { x: 42, y: 28, w: 14, h: 36 } }, // potted plant by 婆婆's door
-      // TODO(art): needs public/pages/06/window-moon.webp — an edit of this
-      // page's resting background with the moon brightened, same convention
-      // as pages 4/5/9/10/12. Until that file exists, tapping shows the
-      // dashed placeholder box (Layer's normal M0 fallback), not broken.
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 12, y: 0, w: 20, h: 26 } }, // moon, upper-left by the tree
+      // window-moon is derived from the resting background by
+      // tools/make-moon-glow.py (no generated plate exists for 6/8). Focus is
+      // the moon + its halo, well clear of the give reveal.
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 12, y: 0, w: 20, h: 26 }, aboveReveal: true, focus: { x: 11, y: 0, w: 22, h: 28 } }, // moon, upper-left by the tree
     ],
   },
   {
@@ -245,10 +247,9 @@ export const PAGES: Page[] = [
       // cat-tail is the tail only, clear of the piece 小猫 is now holding.
       { flash: "cat-tail", sfx: "purr", hotspot: { x: 55, y: 62, w: 15, h: 28 }, aboveReveal: true, focus: { x: 58, y: 66, w: 12, h: 24 } }, // 小猫's tail, a callback to book 1
       { flash: "toy-wiggle", sfx: "squeak", hotspot: { x: 26, y: 68, w: 16, h: 22 }, aboveReveal: true, focus: { x: 26, y: 66, w: 14, h: 22 } }, // a toy by the porch
-      // TODO(art): needs public/pages/08/window-moon.webp, same as page 6's
-      // above — not yet generated, so this shows the dashed placeholder box
-      // until it exists.
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 66, y: 2, w: 22, h: 30 } }, // moon, upper-right
+      // Derived by tools/make-moon-glow.py, same as page 6's. This moon's halo
+      // is big, so the focus is too; it stays above the cat's reveal (y 55+).
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 66, y: 2, w: 22, h: 30 }, aboveReveal: true, focus: { x: 60, y: 0, w: 34, h: 44 } }, // moon, upper-right
     ],
   },
   {
@@ -330,11 +331,15 @@ export const PAGES: Page[] = [
       to: "scene-off",
       hotspot: { x: 22, y: 22, w: 18, h: 40 }, // the glowing rabbit lantern, on the stool at left
     },
-    // Both extras stay below the lights-off reveal on purpose: `scene-off`
+    // blanket-wiggle stays below the lights-off reveal on purpose: `scene-off`
     // dims the whole frame and 小兔 is asleep, so reverting any region of it to
-    // the bright, awake resting frame would break the goodnight moment.
+    // the awake resting frame would break the goodnight moment. The moon is the
+    // exception: it has an asleep-state flash (`window-moon-off`, derived from
+    // `scene-off` by tools/make-moon-glow.py) that only touches the moon.
     extras: [
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 62, y: 3, w: 20, h: 31 } }, // moon, last appearance
+      // The old hotspot (62,3,20x31) covered just the window's upper-left; the
+      // window is x 65-88%, y 6-49% with the moon at (77%, 25%).
+      { flash: "window-moon", flashAfter: "window-moon-off", sfx: "chime", hotspot: { x: 65, y: 5, w: 24, h: 45 }, aboveReveal: true, focus: { x: 62, y: 0, w: 30, h: 56 } }, // moon, last appearance
       { flash: "blanket-wiggle", sfx: "whump", hotspot: { x: 35, y: 40, w: 45, h: 50 } }, // 小兔 settling in
     ],
   },

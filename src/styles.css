@@ -157,9 +157,14 @@ body {
   }
 }
 
-/* Whole-scene warm pulse — the costume "lights up" (page 3). */
+/* Whole-scene warm pulse — the lantern lights up (page 3). The art is drawn
+   lit at rest, so this has to be strong to read: a quick bright pop on the
+   first tap, then a clearly visible breathing glow centred on the lantern.
+   Every tap also fires `.glow-burst` (below). */
 .page.is-glowing {
-  animation: page-glow 1.8s ease-in-out infinite alternate;
+  animation:
+    page-glow-pop 700ms ease-out,
+    page-glow 1.6s ease-in-out 700ms infinite alternate;
 }
 .page.is-glowing::after {
   content: "";
@@ -168,20 +173,81 @@ body {
   z-index: 2;
   pointer-events: none;
   background: radial-gradient(
-    circle at 50% 46%,
-    rgba(255, 214, 140, 0.34),
-    rgba(255, 214, 140, 0) 62%
+    circle at 45% 45%,
+    rgba(255, 220, 140, 0.7),
+    rgba(255, 200, 110, 0.25) 38%,
+    rgba(255, 200, 110, 0) 68%
   );
   mix-blend-mode: screen;
-  animation: page-glow-veil 1.8s ease-in-out infinite alternate;
+  animation: page-glow-veil 1.6s ease-in-out infinite alternate;
+}
+@keyframes page-glow-pop {
+  0% { filter: brightness(1) saturate(1); }
+  30% { filter: brightness(1.45) saturate(1.4); }
+  100% { filter: brightness(1.05) saturate(1.1); }
 }
 @keyframes page-glow {
-  from { filter: brightness(1) saturate(1); }
-  to { filter: brightness(1.07) saturate(1.12); }
+  from { filter: brightness(1.05) saturate(1.1); }
+  to { filter: brightness(1.22) saturate(1.3); }
 }
 @keyframes page-glow-veil {
-  from { opacity: 0.25; }
+  from { opacity: 0.3; }
   to { opacity: 1; }
+}
+
+/* Per-tap burst for `glow` pages: an expanding bloom + stars flying out from
+   the hotspot's centre. Above the extras' hotspots' sparks (z 9) so it always
+   shows; never intercepts taps. */
+.glow-burst {
+  position: absolute;
+  z-index: 9;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.glow-burst::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60vmin;
+  height: 60vmin;
+  margin: -30vmin 0 0 -30vmin;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 235, 0.95),
+    rgba(255, 214, 120, 0.6) 35%,
+    rgba(255, 214, 120, 0) 70%
+  );
+  animation: glow-bloom 900ms ease-out forwards;
+}
+.glow-star {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: clamp(30px, 8vmin, 64px);
+  line-height: 1;
+  color: #ffe9a3;
+  text-shadow: 0 0 10px rgba(255, 200, 90, 0.95);
+  opacity: 0;
+  animation: glow-star-fly 1000ms ease-out forwards;
+}
+@keyframes glow-bloom {
+  0% { transform: scale(0.2); opacity: 0; }
+  25% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes glow-star-fly {
+  0% {
+    transform: translate(-50%, -50%) rotate(var(--a)) translateY(0) scale(0.3);
+    opacity: 0;
+  }
+  20% { opacity: 1; }
+  100% {
+    transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(-1 * var(--d))) scale(1.2);
+    opacity: 0;
+  }
 }
 
 .is-twinkling {

@@ -191,7 +191,10 @@ export function PageView({ page }: { page: Page }) {
       {extras.map((x) => (
         <Layer
           key={x.flash}
-          asset={{ id: x.flash, src: `/pages/${pad(page.id)}/${x.flash}.webp` }}
+          asset={{
+            id: x.flash,
+            src: `/pages/${pad(page.id)}/${(opened || given) && x.flashAfter ? x.flashAfter : x.flash}.webp`,
+          }}
           className={`extra-flash ${x.aboveReveal ? "above-reveal" : ""}`}
           style={x.focus ? focusMask(x.focus) : undefined}
           hidden={!flashing[x.flash]}
@@ -233,6 +236,32 @@ export function PageView({ page }: { page: Page }) {
           }}
           aria-hidden="true"
         />
+      )}
+
+      {/* Big, unmistakable "it lit up" on every tap of a `glow` page: a bloom
+          around the hotspot plus a ring of stars flying outward. The ambient
+          pulse after it is deliberately mild (the art is drawn lit at rest),
+          so this burst is what a toddler actually notices. Remounted per tap. */}
+      {it.kind === "glow" && mainTapNonce > 0 && (
+        <div
+          key={`glow-burst-${mainTapNonce}`}
+          className="glow-burst"
+          style={{
+            left: `${it.hotspot.x + it.hotspot.w / 2}%`,
+            top: `${it.hotspot.y + it.hotspot.h / 2}%`,
+          }}
+          aria-hidden="true"
+        >
+          {Array.from({ length: 10 }).map((_, i) => (
+            <span
+              key={i}
+              className="glow-star"
+              style={{ "--a": `${i * 36}deg`, "--d": i % 2 ? "15vmin" : "22vmin" } as CSSProperties}
+            >
+              ✦
+            </span>
+          ))}
+        </div>
       )}
 
       {it.kind === "give" && given && it.counting && (
@@ -278,22 +307,24 @@ export function PageView({ page }: { page: Page }) {
       />
 
       {/* Easter-egg tap targets, above the main hotspot so they win on overlap. */}
-      {extras.map((x) => (
-        <button
-          key={x.flash}
-          type="button"
-          className="hotspot extra-hotspot"
-          style={{
-            left: `${x.hotspot.x}%`,
-            top: `${x.hotspot.y}%`,
-            width: `${x.hotspot.w}%`,
-            height: `${x.hotspot.h}%`,
-          }}
-          onClick={() => tapExtra(x)}
-          aria-hidden="true"
-          tabIndex={-1}
-        />
-      ))}
+      {extras.flatMap((x) =>
+        [x.hotspot, ...(x.alsoTap ?? [])].map((h, i) => (
+          <button
+            key={`${x.flash}-${i}`}
+            type="button"
+            className="hotspot extra-hotspot"
+            style={{
+              left: `${h.x}%`,
+              top: `${h.y}%`,
+              width: `${h.w}%`,
+              height: `${h.h}%`,
+            }}
+            onClick={() => tapExtra(x)}
+            aria-hidden="true"
+            tabIndex={-1}
+          />
+        )),
+      )}
 
       <button
         type="button"

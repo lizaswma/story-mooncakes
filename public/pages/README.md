@@ -17,13 +17,17 @@ from the repo root after any art update in `little-rabbit-style`.
 | `03` | `background.webp` | `p03-scene.jpeg` |
 | `04` | `background.webp`, `scene-cut.webp`, `teapot-steam.webp`, `window-moon.webp` | `p04-whole.jpeg`, `p04-cut.jpeg`, `p04-teapot-steam.jpeg`, `p04-window-moon.jpeg` |
 | `05` | `background.webp`, `dragon.png` (alpha), `tree-leaves.webp`, `window-moon.webp` | `p05-scene.jpeg`, `dragon-layer.png`, `p05-tree-leaves.jpeg`, `p05-window-moon.jpeg` |
-| `06` | `background.webp`, `scene-given.webp`, `plant-sway.webp` | `p06-scene.jpeg`, `p06-given.jpeg`, `p06-plant-sway.jpeg` |
+| `06` | `background.webp`, `scene-given.webp`, `plant-sway.webp`, `window-moon.webp`* | `p06-scene.jpeg`, `p06-given.jpeg`, `p06-plant-sway.jpeg` |
 | `07` | `background.webp`, `scene-given.webp`, `chair-rock.webp`, `lantern-bright.webp` | `p07-scene.jpeg`, `p07-given.jpeg`, `p07-chair-rock.jpeg`, `p07-lantern-bright.jpeg` |
-| `08` | `background.webp`, `scene-given.webp`, `cat-tail.webp`, `toy-wiggle.webp` | `p08-scene.jpeg`, `p08-given.jpeg`, `p08-cat-tail.jpeg`, `p08-toy-wiggle.jpeg` |
+| `08` | `background.webp`, `scene-given.webp`, `cat-tail.webp`, `toy-wiggle.webp`, `window-moon.webp`* | `p08-scene.jpeg`, `p08-given.jpeg`, `p08-cat-tail.jpeg`, `p08-toy-wiggle.jpeg` |
 | `09` | `background.webp`, `scene-open.webp`, `window-moon.webp` | `p09-closed.jpeg`, `p09-open.jpeg`, `p09-window-moon.jpeg` |
 | `10` | `background.webp`, `scene-given.webp`, `window-moon.webp`, `candle-flare.webp` | `p10-scene.jpeg`, `p10-given.jpeg`, `p10-window-moon.jpeg`, `p10-candle-flare.jpeg` |
 | `11` | `background.webp`, `jade-rabbit.webp` | `p11-scene.jpeg`, `jade-rabbit.jpeg` |
-| `12` | `background.webp`, `scene-off.webp`, `window-moon.webp`, `blanket-wiggle.webp` | `p12-scene.jpeg`, `p12-off.jpeg`, `p12-window-moon.jpeg`, `p12-blanket-wiggle.jpeg` |
+| `12` | `background.webp`, `scene-off.webp`, `window-moon.webp`, `window-moon-off.webp`*, `blanket-wiggle.webp` | `p12-scene.jpeg`, `p12-off.jpeg`, `p12-window-moon.jpeg`, `p12-blanket-wiggle.jpeg` |
+
+\* `06`/`08` `window-moon.webp` and `12` `window-moon-off.webp` have no source plate: `tools/make-moon-glow.py`
+derives them (moon + soft halo) from each page's `background.webp`, or `12`'s `scene-off.webp` for the asleep-state moon. Replace with
+generated plates if you want them to match the others exactly.
 
 All `extras` easter-egg flashes are now wired (PRD §6.1), except one:
 

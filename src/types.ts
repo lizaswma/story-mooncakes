@@ -86,11 +86,26 @@ export type Interaction =
  */
 export type ExtraTap = {
   hotspot: Hotspot;
+  /**
+   * More tap rects that trigger this same extra, for an element that isn't a
+   * rectangle (page 5's tree is an L: wide canopy over a thin trunk, and one
+   * box around both would swallow 小兔 beside it). The spark plays over
+   * `hotspot`, so make that the biggest/most obvious part.
+   */
+  alsoTap?: Hotspot[];
   sfx: string;
   /** Full-frame variant layer id under /pages/NN/ (e.g. "moon-bright"). */
   flash: string;
   /** How long the variant stays up, ms (default 900). */
   hold?: number;
+  /**
+   * Flash id to show INSTEAD of `flash` once the page's main interaction has
+   * fired. `flash` is an edit of the pre-interaction frame, so on a page whose
+   * reveal changes the whole look (page 12's lights-off) it would be the wrong
+   * frame; this is the same edit made on the revealed frame. Use with
+   * `aboveReveal` + `focus`.
+   */
+  flashAfter?: string;
   /**
    * Extras are edits of the page's PRE-interaction resting background (see
    * PageView's `.extra-flash` z-index note), so by default they render
@@ -102,6 +117,8 @@ export type ExtraTap = {
    * Leave unset on any extra whose page reveals something the story needs
    * to stay visible (a door opening on family, a hug) — reverting that even
    * briefly is the actual bug this flag exists to avoid re-introducing.
+   * Almost always pair this with `focus` (below): without it the whole frame
+   * reverts, e.g. page 4's cut mooncake looked whole again on every tap.
    */
   aboveReveal?: boolean;
   /**
