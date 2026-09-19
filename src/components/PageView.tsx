@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import type { ExtraTap, Page } from "../types";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import type { ExtraTap, Hotspot, Page } from "../types";
 import { useBook } from "../context/BookContext";
 import { t } from "../i18n";
 import {
@@ -11,6 +11,15 @@ import {
 import { Layer } from "./Layer";
 
 const pad = (n: number) => String(n).padStart(2, "0");
+
+/** Feathered oval mask over a hotspot-shaped region (see ExtraTap.focus). */
+function focusMask(f: Hotspot): CSSProperties {
+  // Radii are 1.25x the half-extents so the oval still covers the rect's corners.
+  const mask = `radial-gradient(ellipse ${(f.w / 2) * 1.25}% ${(f.h / 2) * 1.25}% at ${
+    f.x + f.w / 2
+  }% ${f.y + f.h / 2}%, #000 70%, transparent 100%)`;
+  return { maskImage: mask, WebkitMaskImage: mask };
+}
 
 /** One story page: background + stacked layers + one big tap target (PRD §6). */
 export function PageView({ page }: { page: Page }) {
@@ -184,6 +193,7 @@ export function PageView({ page }: { page: Page }) {
           key={x.flash}
           asset={{ id: x.flash, src: `/pages/${pad(page.id)}/${x.flash}.webp` }}
           className={`extra-flash ${x.aboveReveal ? "above-reveal" : ""}`}
+          style={x.focus ? focusMask(x.focus) : undefined}
           hidden={!flashing[x.flash]}
         />
       ))}

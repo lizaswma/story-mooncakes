@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { Asset } from "../types";
 
 /**
@@ -9,10 +9,12 @@ export function Layer({
   asset,
   className = "",
   hidden = false,
+  style,
 }: {
   asset: Asset;
   className?: string;
   hidden?: boolean;
+  style?: CSSProperties;
 }) {
   const [missing, setMissing] = useState(false);
 
@@ -21,6 +23,7 @@ export function Layer({
       className={`layer ${asset.className ?? ""} ${className}`}
       data-layer={asset.id}
       hidden={hidden}
+      style={style}
     >
       {!missing && (
         <img

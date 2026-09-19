@@ -104,6 +104,17 @@ export type ExtraTap = {
    * briefly is the actual bug this flag exists to avoid re-introducing.
    */
   aboveReveal?: boolean;
+  /**
+   * With `aboveReveal`: confine the flash to this region (% of the stage, same
+   * shape as a hotspot), feathered at the edges, instead of showing the whole
+   * frame. The flash is an edit of the PRE-interaction background, so a
+   * full-frame flash above the reveal briefly reverts *everything* (page 1's
+   * brightened moon, page 9's family...). Focused on just the part that
+   * animates, the rest of the frame keeps the revealed art. Size it to the
+   * animated element plus its motion (sparks, wobble), and keep it off
+   * anything the main interaction changes.
+   */
+  focus?: Hotspot;
 };
 
 export type Page = {

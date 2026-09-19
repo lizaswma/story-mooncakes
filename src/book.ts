@@ -78,7 +78,10 @@ export const PAGES: Page[] = [
       hotspot: { x: 58, y: 4, w: 26, h: 30 }, // moon, upper-right
     },
     extras: [
-      { flash: "window-peek", sfx: "hush", hotspot: { x: 28, y: 46, w: 14, h: 18 } }, // the lit window, left
+      // aboveReveal + focus: after the moon swap fires, `scene-bright` would
+      // otherwise cover this flash and the window tap went visually dead.
+      // Focused on the window so the brightened moon doesn't dim.
+      { flash: "window-peek", sfx: "hush", hotspot: { x: 28, y: 46, w: 14, h: 18 }, aboveReveal: true, focus: { x: 27, y: 42, w: 14, h: 26 } }, // the lit window, left
     ],
   },
   {
@@ -100,8 +103,12 @@ export const PAGES: Page[] = [
       hotspot: { x: 36, y: 15, w: 30, h: 38 }, // the blank lantern on the table
     },
     extras: [
-      { flash: "scraps-flutter", sfx: "rustle", hotspot: { x: 15, y: 72, w: 27, h: 26 } }, // basket of paper scraps
-      { flash: "stool-wobble", sfx: "tap", hotspot: { x: 58, y: 58, w: 24, h: 37 } }, // the little stool
+      // aboveReveal + focus on both (the decorated lantern stays put): without
+      // them the flash sits under `scene-decorated` and a tap after the
+      // lantern swap goes visually dead. Focus rects include the motion
+      // (flying scraps, the wobbling stool), which the hotspot alone doesn't.
+      { flash: "scraps-flutter", sfx: "rustle", hotspot: { x: 15, y: 72, w: 27, h: 26 }, aboveReveal: true, focus: { x: 14, y: 52, w: 30, h: 30 } }, // basket of paper scraps
+      { flash: "stool-wobble", sfx: "tap", hotspot: { x: 58, y: 58, w: 24, h: 37 }, aboveReveal: true, focus: { x: 56, y: 52, w: 26, h: 40 } }, // the little stool
     ],
   },
   {
@@ -181,7 +188,13 @@ export const PAGES: Page[] = [
       hotspot: { x: 32, y: 60, w: 24, h: 30 }, // the plate of wedges, in 小兔's paws
     },
     extras: [
-      { flash: "plant-sway", sfx: "rustle", hotspot: { x: 40, y: 38, w: 16, h: 30 } }, // potted plant by 婆婆's door
+      // aboveReveal + focus keep this tap visible after the give (see page 2).
+      { flash: "plant-sway", sfx: "rustle", hotspot: { x: 40, y: 38, w: 16, h: 30 }, aboveReveal: true, focus: { x: 42, y: 28, w: 14, h: 36 } }, // potted plant by 婆婆's door
+      // TODO(art): needs public/pages/06/window-moon.webp — an edit of this
+      // page's resting background with the moon brightened, same convention
+      // as pages 4/5/9/10/12. Until that file exists, tapping shows the
+      // dashed placeholder box (Layer's normal M0 fallback), not broken.
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 12, y: 0, w: 20, h: 26 } }, // moon, upper-left by the tree
     ],
   },
   {
@@ -202,8 +215,12 @@ export const PAGES: Page[] = [
       hotspot: { x: 48, y: 55, w: 28, h: 42 }, // 小兔 + the plate of wedges, right side
     },
     extras: [
-      { flash: "chair-rock", sfx: "creak", hotspot: { x: 8, y: 25, w: 28, h: 71 } }, // 公公's rocking chair
-      { flash: "lantern-bright", sfx: "flare", hotspot: { x: 40, y: 2, w: 20, h: 28 } }, // hanging lantern
+      // aboveReveal + focus keep both taps visible after the give. chair-rock's
+      // region necessarily overlaps 公公 (he rocks with the chair), so his
+      // piece of mooncake blinks out for the length of the rock, then returns.
+      // The flash's stray lantern edit is outside the focus, so it's masked off.
+      { flash: "chair-rock", sfx: "creak", hotspot: { x: 8, y: 25, w: 28, h: 71 }, aboveReveal: true, focus: { x: 7, y: 22, w: 27, h: 72 } }, // 公公's rocking chair
+      { flash: "lantern-bright", sfx: "flare", hotspot: { x: 40, y: 2, w: 20, h: 28 }, aboveReveal: true, focus: { x: 36, y: 0, w: 28, h: 34 } }, // hanging lantern
     ],
   },
   {
@@ -224,8 +241,14 @@ export const PAGES: Page[] = [
       hotspot: { x: 36, y: 65, w: 26, h: 32 }, // 小兔 + the plate of wedges, left side
     },
     extras: [
-      { flash: "cat-tail", sfx: "purr", hotspot: { x: 55, y: 62, w: 15, h: 28 } }, // 小猫's tail, a callback to book 1
-      { flash: "toy-wiggle", sfx: "squeak", hotspot: { x: 26, y: 68, w: 16, h: 22 } }, // a toy by the porch
+      // aboveReveal + focus keep both taps visible after the give. Focus for
+      // cat-tail is the tail only, clear of the piece 小猫 is now holding.
+      { flash: "cat-tail", sfx: "purr", hotspot: { x: 55, y: 62, w: 15, h: 28 }, aboveReveal: true, focus: { x: 58, y: 66, w: 12, h: 24 } }, // 小猫's tail, a callback to book 1
+      { flash: "toy-wiggle", sfx: "squeak", hotspot: { x: 26, y: 68, w: 16, h: 22 }, aboveReveal: true, focus: { x: 26, y: 66, w: 14, h: 22 } }, // a toy by the porch
+      // TODO(art): needs public/pages/08/window-moon.webp, same as page 6's
+      // above — not yet generated, so this shows the dashed placeholder box
+      // until it exists.
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 66, y: 2, w: 22, h: 30 } }, // moon, upper-right
     ],
   },
   {
@@ -251,7 +274,9 @@ export const PAGES: Page[] = [
     // brighter) was dropped after 4 generation attempts across 3 different
     // techniques all came back visually identical to the source plate.
     extras: [
-      { flash: "window-moon", sfx: "chime", hotspot: { x: 57, y: 2, w: 21, h: 24 } }, // moon, upper-right
+      // aboveReveal + focus: the moon's glow, without reverting the door/family
+      // reveal below it (the reason this used to sit under `scene-open`).
+      { flash: "window-moon", sfx: "chime", hotspot: { x: 57, y: 2, w: 21, h: 24 }, aboveReveal: true, focus: { x: 45, y: 0, w: 50, h: 42 } }, // moon, upper-right
     ],
   },
   {
@@ -272,8 +297,10 @@ export const PAGES: Page[] = [
       hotspot: { x: 44, y: 50, w: 18, h: 22 }, // the last wedge on the plate
     },
     extras: [
+      // window-moon stays below the hug reveal on purpose: Mom's and Dad's ears
+      // cross that window in `scene-given`, so no region of it is safe to revert.
       { flash: "window-moon", sfx: "chime", hotspot: { x: 52, y: 10, w: 20, h: 32 } }, // moon through the window
-      { flash: "candle-flare", sfx: "flare", hotspot: { x: 19, y: 42, w: 14, h: 20 } }, // table candle
+      { flash: "candle-flare", sfx: "flare", hotspot: { x: 19, y: 42, w: 14, h: 20 }, aboveReveal: true, focus: { x: 14, y: 36, w: 16, h: 28 } }, // table candle
     ],
   },
   {
@@ -303,6 +330,9 @@ export const PAGES: Page[] = [
       to: "scene-off",
       hotspot: { x: 22, y: 22, w: 18, h: 40 }, // the glowing rabbit lantern, on the stool at left
     },
+    // Both extras stay below the lights-off reveal on purpose: `scene-off`
+    // dims the whole frame and 小兔 is asleep, so reverting any region of it to
+    // the bright, awake resting frame would break the goodnight moment.
     extras: [
       { flash: "window-moon", sfx: "chime", hotspot: { x: 62, y: 3, w: 20, h: 31 } }, // moon, last appearance
       { flash: "blanket-wiggle", sfx: "whump", hotspot: { x: 35, y: 40, w: 45, h: 50 } }, // 小兔 settling in
