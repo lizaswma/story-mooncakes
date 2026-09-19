@@ -316,7 +316,12 @@ export const PAGES: Page[] = [
       kind: "swap",
       sfx: "magic",
       to: "jade-rabbit",
-      hotspot: { x: 38, y: 6, w: 30, h: 34 }, // the big full moon
+      // The moon is huge (disc spans ~x 27-73%, from the top of the frame down
+      // behind the family) and this is the page's one payoff, so the target
+      // covers all of it, not just the middle: a toddler poking anywhere on
+      // the moon, or the family's heads in front of it, gets the reveal.
+      // There are no extras here to compete with.
+      hotspot: { x: 25, y: 2, w: 50, h: 56 }, // the big full moon
     },
     // No extras here — protects the reveal as the page's one payoff (PRD §6.1).
   },
