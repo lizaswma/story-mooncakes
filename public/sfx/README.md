@@ -1,8 +1,14 @@
 # Sound effects
 
 Language-independent (PRD.md §4.1). Referenced by name from `src/book.ts`.
-None of these exist yet — TTS can generate narration but not sound design,
-so this folder is still empty pending a separate sourcing/generation pass.
+TTS can generate narration but not sound design, so these are synthesized from
+scratch (bell/pluck tones, filtered noise, pitch sweeps) by `tools/make-sfx.py`
+— deterministic, no sourcing or licensing. Edit a recipe there and re-run
+`python3 tools/make-sfx.py [name ...]` (needs numpy + `ffmpeg`).
+
+They're placeholder-grade synthesis: fine to ship and playtest with, and a
+recorded/sourced replacement can drop in under the same filename with no code
+changes (same as the narration voice swap in `../audio/README.md`).
 
 | File | Used on |
 |---|---|
@@ -24,5 +30,7 @@ so this folder is still empty pending a separate sourcing/generation pass.
 | `lullaby.mp3` | p12 main tap (bedtime) |
 | `whump.mp3` | p12 extra (`blanket-wiggle`) |
 
-Keep them short (< 1.5 s), soft, non-startling — same bar as story-halloween's
-SFX plan (also still unsourced as of this writing).
+Keep them short (≤ 1.5 s), soft, non-startling — same bar as story-halloween's
+SFX plan. `make-sfx.py` levels every clip to the same average loudness (peak
+capped near -9 dBFS) so no tap is louder than another and all sit under the
+narration.
