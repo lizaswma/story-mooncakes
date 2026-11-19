@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useBook } from "./context/BookContext";
 import { PAGES } from "./book";
 import { t, UI } from "./i18n";
-import { useSwipe } from "./hooks/useSwipe";
 import { unlockAudio } from "./audio/sound";
 import { TitleCard } from "./components/TitleCard";
 import { PageView } from "./components/PageView";
@@ -12,7 +11,6 @@ import { ParentMenu } from "./components/ParentMenu";
 
 export default function App() {
   const { pageIndex, goNext, goPrev, language } = useBook();
-  const swipe = useSwipe({ onSwipeLeft: goNext, onSwipeRight: goPrev });
 
   // Keyboard nav for desktop dev (PRD: also runs in desktop browser).
   useEffect(() => {
@@ -26,11 +24,12 @@ export default function App() {
 
   const page = pageIndex > 0 ? PAGES[pageIndex - 1] : null;
 
+  // No swipe-to-turn: a toddler's imprecise taps on the interactive elements
+  // kept turning the page by accident. Page turns are arrows only.
   return (
     <div
       className="stage"
       onPointerDown={unlockAudio}
-      {...swipe}
     >
       <div className="stage-inner">
         {page ? <PageView key={page.id} page={page} /> : <TitleCard />}

@@ -180,7 +180,8 @@ Interactions are not gates. `prefers-reduced-motion` honored throughout.
 
 ## 7. Navigation & UX
 
-Identical to book 1 — large left/right arrow buttons + swipe, no auto-advance, subtle
+Same as book 1 — large left/right arrow buttons only (no swipe; it turned pages by
+accident while a toddler was tapping interactive elements), no auto-advance, subtle
 progress dots, narration auto-plays on page turn and replays on tap, global mute, small
 gear-icon parent menu (language / mute / restart), prominent series-branded title card.
 See [story-halloween PRD §7](../story-halloween/PRD.md) for the full spec; nothing
